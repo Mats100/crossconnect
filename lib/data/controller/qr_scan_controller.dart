@@ -15,10 +15,12 @@ import '../model/file_model.dart';
 
 import 'dart:typed_data';
 
+import '../model/qr_model.dart';
+
 class QRScanController extends GetxController {
   static const procedureDownload = "io.xconn.progress.download";
 
-  Rx<FileHistoryModel?> scannedData = Rx<FileHistoryModel?>(null);
+  Rx<FileDataModel?> scannedData = Rx<FileDataModel?>(null);
 
   Future<void> requestPermissions() async {
     if (!Platform.isAndroid) return;
@@ -41,7 +43,7 @@ class QRScanController extends GetxController {
       await requestPermissions();
 
       final Map<String, dynamic> decoded = jsonDecode(rawJson);
-      final model = FileHistoryModel.fromJson(decoded);
+      final model = FileDataModel.fromJson(decoded);
       scannedData.value = model;
 
       await caller();
@@ -62,7 +64,7 @@ class QRScanController extends GetxController {
 
     try {
       final client = Client();
-      final session = await client.connect("ws://$ip:8080/ws", "realm1");
+      final session = await client.connect("ws://0.0.0.0:8080/ws", "realm1");
 
       final dir = await getApplicationDocumentsDirectory();
       final uniqueFileName =

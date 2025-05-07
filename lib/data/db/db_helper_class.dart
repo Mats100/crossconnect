@@ -1,11 +1,10 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
 import '../model/file_model.dart';
 
 class DBHelper {
   static Future<Database> initDB() async {
-    final path = join(await getDatabasesPath(), 'file_history.db');
+    final path = join(await getDatabasesPath(), 'history.db');
 
     return openDatabase(
       path,
@@ -14,6 +13,7 @@ class DBHelper {
         return db.execute('''
         CREATE TABLE files (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
+          ip TEXT,
           fileName TEXT,
           filePath TEXT
         )
