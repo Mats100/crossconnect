@@ -48,7 +48,10 @@ class QRCodeController extends GetxController {
     if (isRegistered) return;
 
     client ??= xconn.Client();
-    session ??= await client!.connect("ws://0.0.0.0:8080/ws", "realm1");
+    // session ??= await client!.connect("ws://0.0.0.0:8080/ws", "realm1");
+
+    session ??= await client!.connect("ws://${ipAddress.value}:8080/ws", "realm1");
+
 
     xconn.Result downloadHandler(xconn.Invocation inv) {
       const int chunkSize = 1024;
@@ -70,6 +73,8 @@ class QRCodeController extends GetxController {
     try {
       await session!.register(procedureDownload, downloadHandler);
       isRegistered = true;
+      print("Registered procedure '$procedureDownload' successfully");
+      print("Procedure '$procedureDownload' is now registered and ready."); // ✅ Add here
       print("Registered procedure '$procedureDownload' successfully");
     } catch (e) {
       print("Procedure registration failed: $e");

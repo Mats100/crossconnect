@@ -1,4 +1,4 @@
-import ""'package:crossconnect/view/generate_qr_code_view.dart';
+import 'package:crossconnect/view/generate_qr_code_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

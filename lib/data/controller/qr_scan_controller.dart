@@ -64,7 +64,10 @@ class QRScanController extends GetxController {
 
     try {
       final client = Client();
-      final session = await client.connect("ws://0.0.0.0:8080/ws", "realm1");
+      // final session = await client.connect("ws://0.0.0.0:8080/ws", "realm1");
+
+      final session = await client.connect("ws://${model.ip}:8080/ws", "realm1");
+
 
       final dir = await getApplicationDocumentsDirectory();
       final uniqueFileName =
